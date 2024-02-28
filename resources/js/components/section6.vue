@@ -39,7 +39,6 @@
                 <div class="swiper-slide">
                   <div class="team-item">
                     <div class="team-thumb">
-<!--                      <img src="assets/images/team/team-1.png" alt="team">-->
                       <img :src="team1" alt="element">
                       <div class="team-social-area">
                         <ul class="team-social">
@@ -59,7 +58,6 @@
                 <div class="swiper-slide">
                   <div class="team-item">
                     <div class="team-thumb">
-<!--                      <img src="assets/images/team/team-2.png" alt="team">-->
                       <img :src="team2" alt="element">
                       <div class="team-social-area">
                         <ul class="team-social">
@@ -79,7 +77,6 @@
                 <div class="swiper-slide">
                   <div class="team-item">
                     <div class="team-thumb">
-<!--                      <img src="assets/images/team/team-3.png" alt="team">-->
                       <img :src="team3" alt="element">
                       <div class="team-social-area">
                         <ul class="team-social">
