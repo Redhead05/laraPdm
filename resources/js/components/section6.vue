@@ -1,5 +1,20 @@
 <script setup lang="js">
-  import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/vue';
+import Swiper from 'swiper';
+import 'swiper/swiper-bundle.css';
+
+
+  let swiper = null;
+
+  onMounted(() => {
+      swiper = new Swiper('.team-slider', {
+          slidesPerView: 4,
+          spaceBetween: 10, // Optional, add some space between slides
+          // ... other options
+      });
+  });
+
 
   const element43 = ref("/assets/images/element/element-43.png");
   const team1 = ref("/assets/images/team/team-1.png");
@@ -55,44 +70,111 @@
                     </div>
                   </div>
                 </div>
-                <div class="swiper-slide">
-                  <div class="team-item">
-                    <div class="team-thumb">
-                      <img :src="team2" alt="element">
-                      <div class="team-social-area">
-                        <ul class="team-social">
-                          <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                          <li><a href="#0"><i class="fab fa-twitter"></i></a></li>
-                          <li><a href="#0"><i class="fab fa-google-plus-g"></i></a></li>
-                          <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                        </ul>
+<!--                  gambar ke 2-->
+                  <div class="swiper-slide">
+                      <div class="team-item">
+                          <div class="team-thumb">
+                              <img :src="team1" alt="element">
+                              <div class="team-social-area">
+                                  <ul class="team-social">
+                                      <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-twitter"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-google-plus-g"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="team-content">
+                              <h3 class="title"><a href="team-details.html">Nilkusa Agawal</a></h3>
+                              <span class="sub-title">Sr. Marketer</span>
+                          </div>
                       </div>
-                    </div>
-                    <div class="team-content">
-                      <h3 class="title"><a href="team-details.html">Abhisek Roy</a></h3>
-                      <span class="sub-title">Havey Truck Instructor</span>
-                    </div>
                   </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="team-item">
-                    <div class="team-thumb">
-                      <img :src="team3" alt="element">
-                      <div class="team-social-area">
-                        <ul class="team-social">
-                          <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                          <li><a href="#0"><i class="fab fa-twitter"></i></a></li>
-                          <li><a href="#0"><i class="fab fa-google-plus-g"></i></a></li>
-                          <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                        </ul>
+<!--                  end gambar 2-->
+                  <!--                  gambar ke 2-->
+                  <div class="swiper-slide">
+                      <div class="team-item">
+                          <div class="team-thumb">
+                              <img :src="team1" alt="element">
+                              <div class="team-social-area">
+                                  <ul class="team-social">
+                                      <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-twitter"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-google-plus-g"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="team-content">
+                              <h3 class="title"><a href="team-details.html">Nilkusa Agawal</a></h3>
+                              <span class="sub-title">Sr. Marketer</span>
+                          </div>
                       </div>
-                    </div>
-                    <div class="team-content">
-                      <h3 class="title"><a href="team-details.html">Rashmika Mandana</a></h3>
-                      <span class="sub-title">Lady Instructor</span>
-                    </div>
                   </div>
-                </div>
+                  <!--                  end gambar 2-->
+                  <!--                  gambar ke 2-->
+                  <div class="swiper-slide">
+                      <div class="team-item">
+                          <div class="team-thumb">
+                              <img :src="team1" alt="element">
+                              <div class="team-social-area">
+                                  <ul class="team-social">
+                                      <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-twitter"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-google-plus-g"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="team-content">
+                              <h3 class="title"><a href="team-details.html">Nilkusa Agawal</a></h3>
+                              <span class="sub-title">Sr. Marketer</span>
+                          </div>
+                      </div>
+                  </div>
+                  <!--                  end gambar 2-->
+                  <!--                  gambar ke 2-->
+                  <div class="swiper-slide">
+                      <div class="team-item">
+                          <div class="team-thumb">
+                              <img :src="team1" alt="element">
+                              <div class="team-social-area">
+                                  <ul class="team-social">
+                                      <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-twitter"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-google-plus-g"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="team-content">
+                              <h3 class="title"><a href="team-details.html">Nilkusa Agawal</a></h3>
+                              <span class="sub-title">Sr. Marketer</span>
+                          </div>
+                      </div>
+                  </div>
+                  <!--                  end gambar 2-->
+                  <!--                  gambar ke 2-->
+                  <div class="swiper-slide">
+                      <div class="team-item">
+                          <div class="team-thumb">
+                              <img :src="team1" alt="element">
+                              <div class="team-social-area">
+                                  <ul class="team-social">
+                                      <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-twitter"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-google-plus-g"></i></a></li>
+                                      <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="team-content">
+                              <h3 class="title"><a href="team-details.html">Nilkusa Agawal</a></h3>
+                              <span class="sub-title">Sr. Marketer</span>
+                          </div>
+                      </div>
+                  </div>
+                  <!--                  end gambar 2-->
               </div>
             </div>
           </div>

@@ -29,7 +29,7 @@ const brand4 = ref("/assets/images/brand/brand-4.png");
       <div class="container">
           <div class="row justify-content-center">
               <div class="col-xl-12">
-                  <marquee behavior="scroll" direction="left" loop="-1">
+                  <marquee behavior="scroll" direction="left" loop="-1" scrollamount="10">
                       <div class="brand-item" style="display: inline-block; margin-right: 20px;">
                           <img :src="brand1" alt="brand">
                       </div>
