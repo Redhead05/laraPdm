@@ -1,7 +1,12 @@
 <script setup lang="ts">
     import { ref } from 'vue';
+    import { InertiaLink } from '@inertiajs/inertia-vue3';
 
     const imagePath = ref("/assets/images/logo-pdm.png");
+    const props = defineProps({
+        routes: Object,
+    })
+
 </script>
 <template>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -23,7 +28,9 @@
                                     <div class="main-menu"></div>
                                     <ul class="navbar-nav main-menu">
                                         <li><a href="index.html">Home</a></li>
-                                        <li><a href="about.html">About</a></li>
+                                        <li>
+                                            <InertiaLink :href="props.routes.blog">Blog</InertiaLink>
+                                        </li>
                                         <li><a href="portfolio.html">Portfolio</a></li>
                                         <li><a href="contact.html">Contact</a></li>
                                     </ul>

@@ -39,7 +39,6 @@
 <body>
     @inertia
 
-</body>
     <!-- jquery -->
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js')}}"></script>
     <!-- bootstrap js -->
@@ -62,4 +61,6 @@
     <script src="{{ asset('assets/js/TweenMax.min.js')}}"></script>
     <!-- main -->
     <script src="{{ asset('assets/js/main.js')}}"></script>
+</body>
+
 </html>
