@@ -127,39 +127,6 @@ const imageElement22 = ref("../assets/images/element/element-22.png");
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-30">
-                                        <div class="statistics-item">
-                                            <div class="statistics-content">
-                                                <div class="odo-area">
-                                                    <h3 class="odo-title odometer" data-odometer-final="256">0</h3>
-                                                    <h3 class="title">+</h3>
-                                                </div>
-                                                <p>Projects deliverd</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-30">
-                                        <div class="statistics-item">
-                                            <div class="statistics-content">
-                                                <div class="odo-area">
-                                                    <h3 class="odo-title odometer" data-odometer-final="65">0</h3>
-                                                    <h3 class="title">+</h3>
-                                                </div>
-                                                <p>Team Specialist</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-30">
-                                        <div class="statistics-item">
-                                            <div class="statistics-content">
-                                                <div class="odo-area">
-                                                    <h3 class="odo-title odometer" data-odometer-final="25">0</h3>
-                                                    <h3 class="title">+</h3>
-                                                </div>
-                                                <p>Around The World</p>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
