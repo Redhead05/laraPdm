@@ -1,5 +1,5 @@
 <script setup lang="js">
-import {defineProps, ref} from 'vue';
+import { defineProps } from 'vue';
 import HeaderComponent from '../components/header.vue';
 import PageLoaderComponent from "../components/PageLoader.vue";
 import section2Component from "../components/section2.vue";
@@ -38,10 +38,7 @@ const props = defineProps({
     <!--        <page-loader></page-loader>-->
     <BannerSectionComponent></BannerSectionComponent>
     <section2Component></section2Component>
-    <section3Component
-        :blog-route="props.routes.blog"
-        :blog-details-route="props.routes.blogDetails"
-    ></section3Component>
+    <section3Component></section3Component>
     <marqueeSectionComponent></marqueeSectionComponent>
     <section4Component></section4Component>
     <section5Component></section5Component>
