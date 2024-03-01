@@ -16,6 +16,7 @@ class BlogController extends Controller
         return Inertia::render('blog/blog', [
             'routes' =>[
                 'route' => route('blog.index'),
+                'blogDetails' => route('blog-details.index'),
             ]
         ]);
     }

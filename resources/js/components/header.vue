@@ -9,9 +9,6 @@
 
 </script>
 <template>
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Start Header
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <header class="header-section">
         <div class="header">
             <div class="header-bottom-area">
@@ -42,8 +39,5 @@
             </div>
         </div>
     </header>
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        End Header
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 </template>
 

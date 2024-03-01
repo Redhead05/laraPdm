@@ -1,6 +1,6 @@
 <script setup lang="js">
 import {ref} from "vue";
-// import blogDetails from "@/Pages/blog/blogDetails.vue";
+// import blogDetails from "@/Pages/blog/detailsBlog.vue";
 
 const props = defineProps({
     routes: Object,
@@ -56,7 +56,7 @@ const project2 = ref("assets/images/project/project-2.png");
               </div>
               <div class="project-overlay">
                 <div class="overlay-content">
-                    <a :href="blogDetailsRoute" class="custom-btn">View All Blog <i class="icon-Group-2361 ml-2"></i></a>
+                    <h4 class="title"><a :href="blogDetailsRoute">Brand redesign meanwhile <br> focusing product</a></h4>
                 </div>
               </div>
             </div>
@@ -68,7 +68,7 @@ const project2 = ref("assets/images/project/project-2.png");
               </div>
               <div class="project-overlay">
                 <div class="overlay-content">
-                  <h4 class="title"><a href="blog-details.html">Brand redesign meanwhile <br> focusing product</a></h4>
+                    <h4 class="title"><a :href="blogDetailsRoute">Were Testing <br> focusing product</a></h4>
                 </div>
               </div>
             </div>
