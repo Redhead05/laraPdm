@@ -11,23 +11,18 @@
 <template>
   <section class="banner-section two inner">
     <div class="banner-element-four two">
-<!--      <img src="assets/images/element/element-5.png" alt="element">-->
       <img :src="imageElement5" alt="element">
     </div>
     <div class="banner-element-five two">
-<!--      <img src="assets/images/element/element-7.png" alt="element">-->
       <img :src="imageElement7" alt="element">
     </div>
     <div class="banner-element-nineteen two">
-<!--      <img src="assets/images/element/element-6.png" alt="element">-->
       <img :src="imageElement6" alt="element">
     </div>
     <div class="banner-element-twenty-two two">
-<!--      <img src="assets/images/element/element-69.png" alt="element">-->
       <img :src="imageElement69" alt="element">
     </div>
     <div class="banner-element-twenty-three two">
-<!--      <img src="assets/images/element/element-70.png" alt="element">-->
       <img :src="imageElement70" alt="element">
     </div>
     <div class="container">

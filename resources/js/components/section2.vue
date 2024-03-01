@@ -2,13 +2,10 @@
 import {onMounted, ref} from 'vue';
 import 'swiper/swiper-bundle.css';
 
-
-
 const brand1 = ref("/assets/images/brand/brand-1.png");
 const brand2 = ref("/assets/images/brand/brand-2.png");
 const brand3 = ref("/assets/images/brand/brand-3.png");
 const brand4 = ref("/assets/images/brand/brand-4.png");
-
 
 </script>
 
@@ -40,5 +37,4 @@ const brand4 = ref("/assets/images/brand/brand-4.png");
           </div>
       </div>
   </div>
-
 </template>

@@ -3,11 +3,13 @@ import { defineProps } from 'vue';
 import HeaderComponent from '../../components/header.vue';
 import footerComponent from "../../components/footer.vue";
 import BannerComponent from "../../components/blog/banner.vue";
+import contentBlogComponent from "../../components/blog/contentBlog.vue";
 
 const components = {
     'header-component': HeaderComponent,
     'footer-component': footerComponent,
     'BannerComponent': BannerComponent,
+    'contentBlogComponent': contentBlogComponent
 };
 const props = defineProps({
     routes:{
@@ -22,5 +24,6 @@ const props = defineProps({
         :routes="props.routes"
     ></header-component>
     <BannerComponent></BannerComponent>
+    <contentBlogComponent></contentBlogComponent>
     <footer-component></footer-component>
 </template>
