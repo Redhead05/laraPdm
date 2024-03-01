@@ -13,10 +13,6 @@ const brand4 = ref("/assets/images/brand/brand-4.png");
 </script>
 
 <template>
-  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Start Brand
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
   <div class="brand-section oh ptb-120">
     <div class="row justify-content-center">
       <div class="col-xl-7 col-lg-8 text-center">
@@ -44,7 +40,5 @@ const brand4 = ref("/assets/images/brand/brand-4.png");
           </div>
       </div>
   </div>
-  <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      End Brand
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
 </template>
