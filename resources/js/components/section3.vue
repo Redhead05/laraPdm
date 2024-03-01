@@ -1,5 +1,12 @@
 <script setup lang="js">
 import {ref} from "vue";
+// import blogDetails from "@/Pages/blog/blogDetails.vue";
+
+const props = defineProps({
+    routes: Object,
+    blogRoute: String,
+    blogDetailsRoute: String,
+})
 
 const element23 = ref("/assets/images/element/element-23.png");
 const element24 = ref("/assets/images/element/element-24.png");
@@ -35,7 +42,7 @@ const project2 = ref("assets/images/project/project-2.png");
               <p>Credibly grow premier ideas rather than bricks-and-clicks strategic theme areas distributed for stand-alone web-readiness.</p>
             </div>
             <div class="section-header-btn">
-              <a href="blog.html" class="custom-btn">View All Blog <i class="icon-Group-2361 ml-2"></i></a>
+                <a :href="blogRoute" class="custom-btn">View All Blog <i class="icon-Group-2361 ml-2"></i></a>
             </div>
           </div>
         </div>
@@ -49,7 +56,7 @@ const project2 = ref("assets/images/project/project-2.png");
               </div>
               <div class="project-overlay">
                 <div class="overlay-content">
-                  <h4 class="title"><a href="blog-details.html">Brand redesign meanwhile <br> focusing product</a></h4>
+                    <a :href="blogDetailsRoute" class="custom-btn">View All Blog <i class="icon-Group-2361 ml-2"></i></a>
                 </div>
               </div>
             </div>

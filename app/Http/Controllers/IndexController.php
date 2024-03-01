@@ -12,6 +12,7 @@ class IndexController extends Controller
         return Inertia::render('index',[
             'routes' =>[
                 'blog' => route('blog.index'),
+                'blogDetails' => route('blog-details.index'),
             ],
         ]);
     }
