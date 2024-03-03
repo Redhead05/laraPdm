@@ -1,8 +1,6 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
-// import { App, plugin } from '@inertiajs/inertia-vue3'
-// import { InertiaProgress } from '@inertiajs/progress'
-import 'swiper/swiper-bundle.css'
+import { route } from './ziggy.js'; // Import route() function from ziggy.js
 
 createInertiaApp({
     resolve: async name => {
@@ -14,9 +12,10 @@ createInertiaApp({
         const module = await page()
         return module.default
     },
-    setup({ el, App, props, plugin }) {
-        const app = createApp({ render: () => h(App, props) })
+    setup({el, App, props, plugin}) {
+        const app = createApp({render: () => h(App, props)})
         app.use(plugin)
+        app.mixin({methods: {route}}) // Add route() function to global methods
         app.mount(el)
     },
-})
+}).then(r =>{})

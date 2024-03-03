@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogDetailsController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 ////    return view('Pages/test');
 //    return Inertia\Inertia::render('index');
 //});
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::resource('/blog', BlogController::class);
+Route::resource('/team', TeamController::class);
+
 Route::resource('/blog-details', BlogDetailsController::class);

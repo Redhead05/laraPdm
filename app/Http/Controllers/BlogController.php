@@ -13,12 +13,7 @@ class BlogController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('blog/blog', [
-            'routes' =>[
-                'route' => route('blog.index'),
-                'blogDetails' => route('blog-details.index'),
-            ]
-        ]);
+        return Inertia::render('blog/blog');
     }
 
     /**

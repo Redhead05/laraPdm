@@ -33,6 +33,7 @@
     <!-- main style css link -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
 
+    @routes
     @vite('resources/js/app.js')
     @inertiaHead
 </head>
@@ -61,6 +62,9 @@
     <script src="{{ asset('assets/js/TweenMax.min.js')}}"></script>
     <!-- main -->
     <script src="{{ asset('assets/js/main.js')}}"></script>
+    <script>
+        window.APP_URL = "{{ env('APP_URL') }}";
+    </script>
 </body>
 
 </html>

@@ -1,29 +1,21 @@
 <script setup lang="js">
-import { defineProps } from 'vue';
-import HeaderComponent from '../../components/header.vue';
-import footerComponent from "../../components/footer.vue";
-import BannerComponent from "../../components/blog/banner.vue";
-import contentBlogComponent from "../../components/blog/contentBlog.vue";
+import HeaderComponent from '@components/header.vue';
+import footerComponent from "@components/footer.vue";
+import BannerComponent from "@components/blog/banner.vue";
+import BlogComponent from "@components/blog/blog.vue";
 
 const components = {
     'header-component': HeaderComponent,
     'footer-component': footerComponent,
     'BannerComponent': BannerComponent,
-    'contentBlogComponent': contentBlogComponent
+    'BlogComponent': BlogComponent
 };
-const props = defineProps({
-    routes:{
-        type: Object,
-        required:true
-    }
-});
+
 </script>
 
 <template>
-    <header-component
-        :routes="props.routes"
-    ></header-component>
+    <header-component></header-component>
     <BannerComponent></BannerComponent>
-    <contentBlogComponent></contentBlogComponent>
+    <BlogComponent></BlogComponent>
     <footer-component></footer-component>
 </template>

@@ -1,11 +1,9 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { InertiaLink } from '@inertiajs/inertia-vue3';
+    import {route} from "ziggy-js";
 
     const imagePath = ref("/assets/images/logo-pdm.png");
-    const props = defineProps({
-        routes: Object,
-    })
 
 </script>
 <template>
@@ -24,11 +22,16 @@
                                 <div class="header-right main-menu">
                                     <div class="main-menu"></div>
                                     <ul class="navbar-nav main-menu">
-                                        <li><a href="index.html">Home</a></li>
                                         <li>
-                                            <InertiaLink :href="props.routes.blog">Blog</InertiaLink>
+<!--                                            <InertiaLink :href="routes('/')">Home</InertiaLink>-->
+                                            <InertiaLink :href="route('index')">Home</InertiaLink>
                                         </li>
-                                        <li><a href="portfolio.html">Portfolio</a></li>
+                                        <li>
+                                            <InertiaLink :href="route('blog.index')">Blog</InertiaLink>
+                                        </li>
+                                        <li>
+                                            <InertiaLink :href="route('team.index')">Team</InertiaLink>
+                                        </li>
                                         <li><a href="contact.html">Contact</a></li>
                                     </ul>
                                 </div>
