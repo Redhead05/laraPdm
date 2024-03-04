@@ -17,3 +17,7 @@ Route::resource('/blog', BlogController::class);
 Route::resource('/team', TeamController::class);
 
 Route::resource('/blog-details', BlogDetailsController::class);
+
+
+
+
