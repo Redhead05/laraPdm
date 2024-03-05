@@ -9,11 +9,15 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/team', function () {
         return view('pages.team.team', ['type_menu' => 'team']);
-    })->name('team');
+})->name('team');
+
+    Route::get('/blog', function () {
+        return view('pages.blog.blog', ['type_menu' => 'team']);
+    })->name('blog');
 });
-    Route::get('/layout-default-layout', function () {
-        return view('pages.layout-default-layout', ['type_menu' => 'layout']);
-    });
+//    Route::get('/layout-default-layout', function () {
+//        return view('pages.layout-default-layout', ['type_menu' => 'layout']);
+//    });
 //Route::redirect('/', '/dashboard-general-dashboard');
 
 // Dashboard

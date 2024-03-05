@@ -22,18 +22,16 @@
                 </ul>
             </li>
             <li class="menu-header">Master</li>
-            <li class="nav-item dropdown {{ $type_menu === 'layout' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $type_menu === 'team' ? 'active' : '' }}">
                 <a href="#"
                    class="nav-link has-dropdown"
                    data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Landing Page</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('team') ? 'active' : '' }}">
-                        <a class="nav-link"
-                           href="{{ url('admin/team') }}">Team</a>
+                        <a class="nav-link" href="{{ url('admin/team') }}">Team</a>
                     </li>
-                    <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
-                        <a class="nav-link"
-                           href="{{ url('admin/admin/layout-default-layout') }}">Blog</a>
+                    <li class="{{ Request::is('team') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/blog') }}">Blog</a>
                     </li>
                     <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
                         <a class="nav-link"
