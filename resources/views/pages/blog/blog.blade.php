@@ -37,6 +37,15 @@
                                     data-toggle="modal"
                                     data-target="#exampleModal">Add</button>
                         </div>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -70,11 +79,12 @@
                                              data-toggle="tooltip"
                                              title="Wildan Ahdian">
                                     </td>
-                                    <td><a href="#"
-                                           class="btn btn-icon btn-success"><i class="fas fa-check"></i></a>
-                                        <a href="#"
-                                           class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                                    </td>
+                                        <td class="card-body">
+                                            <a href="#"
+                                               class="btn btn-icon btn-primary"><i class="far fa-edit"></i></a>
+                                            <a href="#"
+                                               class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
+                                        </td>
                                 </tr>
                                 </tbody>
                             </table>

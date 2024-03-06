@@ -1,19 +1,19 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\TeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('admin')->group(function () {
-    Route::get('/dashboard-general-dashboard', function () {
-        return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
-    })->name('dashboard-general-dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('blog', 'BlogController')->names([
+        'store' =>'blog.store',
+    ]);
+    Route::get('/team', [TeamController::class, 'index'])->name('team');
 
-    Route::get('/team', function () {
-        return view('pages.team.team', ['type_menu' => 'team']);
-})->name('team');
 
-    Route::get('/blog', function () {
-        return view('pages.blog.blog', ['type_menu' => 'team']);
-    })->name('blog');
+
 });
 //    Route::get('/layout-default-layout', function () {
 //        return view('pages.layout-default-layout', ['type_menu' => 'layout']);
