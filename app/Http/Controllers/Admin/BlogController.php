@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -33,23 +34,13 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string',
-            'category_id' => 'required',
-            'description' => 'required',
-            'image' => 'required|image',
-        ]);
 
-        // Create a new instance of the Blog model
-        $blog = new Blog;
+        $requestData = $request->all();
+        $requestData['slug'] = Str::slug($request->title);
 
-        // Assign the validated data to the model's properties
-        $blog->title = $data['title'];
-        $blog->slug = Str::slug($data['title']);
-        $blog->category_id = $data['category_id'];
-        $blog->description = $data['description'];
+        $blog = Blog::create($requestData);
 
         // Handle the image upload
         if($request->hasFile('image')){
@@ -60,8 +51,7 @@ class BlogController extends Controller
         // Save the model instance to the database
         $blog->save();
 //        dd($blog);
-
-      return response()->json(['success' => 'Data is successfully added' , 'blog' => $blog], 200);
+        return redirect()->route('admin.blog.index');
     }
 
     /**

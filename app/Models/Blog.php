@@ -25,16 +25,16 @@ class Blog extends Model
     //upload image
     public function uploadImage($image)
     {
-        $imageName = time().'.'.$image->extension();
+        $imageName = $image->getClientOriginalName();
         $imagePath = public_path('images/'.$imageName);
 
-        // Check if the image already exists
+// Check if the image already exists
         if (file_exists($imagePath)) {
             // Delete the existing image
             unlink($imagePath);
         }
 
-        // Move the uploaded image to the directory
+// Move the uploaded image to the directory
         $image->move(public_path('images'), $imageName);
 
         return '/images/'.$imageName;
