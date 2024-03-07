@@ -64,28 +64,31 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>Komisi Pelaksana Akreditasi</td>
-                                    <td>Vincent</td>
-                                    <td>Laravel</td>
-                                    <td>
-                                        <img alt="image"
-                                             src="{{ asset('admin/img/avatar/avatar-5.png') }}"
-                                             class="rounded-circle"
-                                             width="35"
-                                             data-toggle="tooltip"
-                                             title="Wildan Ahdian">
-                                    </td>
+                                @foreach($blogs as $blog)
+                                    <tr>
+                                        <td>{{$loop->iteration }}</td>
+                                        <td>{{$blog->title}}</td>
+                                        <td>{{$blog->description}}</td>
+                                        <td>{{$blog->category->name}}</td>
+                                        <td>
+                                            <img alt="image"
+                                                 src="{{ asset($blog->image) }}"
+                                                 class="rounded-circle"
+                                                 width="35"
+                                                 data-toggle="tooltip"
+                                                 title="{{$blog->title}}">
+                                        </td>
                                         <td class="card-body">
-                                            <a href="#"
-                                               class="btn btn-icon btn-primary"><i class="far fa-edit"></i></a>
-                                            <a href="#"
+{{--                                            <a href="{{ route('admin.blog.edit', $blog->id) }}"--}}
+{{--                                               class="btn btn-icon btn-primary btnEdit"><i class="far fa-edit"></i></a>--}}
+                                            <button class="btn btn-primary btnAdd"
+                                                    data-toggle="modal"
+                                                    data-target="#editBlogModal" {{ $blog->id  }}>edit</button>
+                                            <a href="{{ route('admin.blog.destroy', $blog->id) }}"
                                                class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
                                         </td>
-                                </tr>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -98,6 +101,7 @@
 @endsection
 
     @include('pages.blog.createBlog')
+    @include('pages.blog.editBlog')
 
 @push('scripts')
         <!-- JS Libraies -->
@@ -118,6 +122,9 @@
         <script>
             $(".btnAdd").click(function (){
                 $("#addBlog").modal('show');
+            })
+            $(".btnEdit").click(function (){
+                $("#editBlog").modal('show');
             })
         </script>
 @endpush

@@ -17,10 +17,10 @@ class BlogController extends Controller
     public function index()
     {
         $type_menu = 'team';
-        $blog = Blog::all();
+        $blogs = Blog::all();
         $categories = Category::all();
 
-        return view('pages.blog.blog', compact('type_menu','categories','blog'));
+        return view('pages.blog.blog', compact('type_menu','categories','blogs'));
     }
 
     /**
@@ -36,7 +36,6 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
-
         $requestData = $request->all();
         $requestData['slug'] = Str::slug($request->title);
 
@@ -45,12 +44,12 @@ class BlogController extends Controller
         // Handle the image upload
         if($request->hasFile('image')){
             $image = $request->file('image');
-            $blog->image = $blog->uploadImage($image);
+            $imageName = $blog->uploadImage($image);
+
+            // Update the image attribute
+            $blog->update(['image' => $imageName]);
         }
 
-        // Save the model instance to the database
-        $blog->save();
-//        dd($blog);
         return redirect()->route('admin.blog.index');
     }
 
@@ -67,15 +66,31 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $categories = Category::all();
+        $blogs = Blog::all();
+
+        return view('pages.blog.editBlog', compact('blog', 'categories', 'blogs'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BlogRequest $request, string $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $requestData = $request->all();
+        $requestData['slug'] = Str::slug($request->title);
+
+        //handle image upload
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $blog->image= $blog->uploadImage($image);
+        }
+
+        $blog->update($requestData);
+
+        return redirect()->route('admin.blog.index');
     }
 
     /**
@@ -83,6 +98,9 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $blog = Blog::findorFail($id);
+        $blog->delete();
+
+        return redirect()->route('admin.blog.index');
     }
 }
