@@ -28,15 +28,26 @@ class Blog extends Model
         $imageName = $image->getClientOriginalName();
         $imagePath = public_path('images/'.$imageName);
 
-// Check if the image already exists
+    // Check if the image already exists
         if (file_exists($imagePath)) {
             // Delete the existing image
             unlink($imagePath);
         }
 
-// Move the uploaded image to the directory
+    // Move the uploaded image to the directory
         $image->move(public_path('images'), $imageName);
 
         return '/images/'.$imageName;
     }
+
+    // Accessor descripton dari database ke view
+    public function getDescriptionAttribute($value)
+    {
+        return strip_tags($value);
+    }
+//    // Mutator description dari add view ke database
+//    public function getRawDescriptionAttribute()
+//    {
+//        return $this->attributes['description'];
+//    }
 }

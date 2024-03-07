@@ -81,11 +81,16 @@
                                         <td class="card-body">
 {{--                                            <a href="{{ route('admin.blog.edit', $blog->id) }}"--}}
 {{--                                               class="btn btn-icon btn-primary btnEdit"><i class="far fa-edit"></i></a>--}}
-                                            <button class="btn btn-primary btnAdd"
+                                            <button class="btn btn-primary"
                                                     data-toggle="modal"
-                                                    data-target="#editBlogModal" {{ $blog->id  }}>edit</button>
-                                            <a href="{{ route('admin.blog.destroy', $blog->id) }}"
-                                               class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
+                                                    data-target="#editBlogModal">edit</button>
+                                            <form action="{{ route('admin.blog.destroy', $blog->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-icon btn-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -101,6 +106,8 @@
 @endsection
 
     @include('pages.blog.createBlog')
+
+
     @include('pages.blog.editBlog')
 
 @push('scripts')
@@ -124,7 +131,7 @@
                 $("#addBlog").modal('show');
             })
             $(".btnEdit").click(function (){
-                $("#editBlog").modal('show');
+                $("#editBlogModal").modal('show');
             })
         </script>
 @endpush

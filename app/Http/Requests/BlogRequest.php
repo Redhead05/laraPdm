@@ -21,11 +21,20 @@ class BlogRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title' => 'required|string',
-            'category_id' => 'required',
-            'description' => 'required',
-            'image' => 'required|image',
-        ];
+        if ($this->isMethod('post')) {
+            return [
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'category_id' => 'required',
+            ];
+        } else {
+            return [
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'category_id' => 'required',
+            ];
+        }
     }
 }

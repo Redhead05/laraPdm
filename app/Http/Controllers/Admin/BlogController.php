@@ -67,10 +67,8 @@ class BlogController extends Controller
     public function edit(string $id)
     {
         $blog = Blog::findOrFail($id);
-        $categories = Category::all();
-        $blogs = Blog::all();
 
-        return view('pages.blog.editBlog', compact('blog', 'categories', 'blogs'));
+        return view('pages.blog.editBlog', compact('blog'));
     }
 
     /**
@@ -86,6 +84,8 @@ class BlogController extends Controller
         if($request->hasFile('image')){
             $image = $request->file('image');
             $blog->image= $blog->uploadImage($image);
+        } else {
+            $blog->image = $request->old_image;
         }
 
         $blog->update($requestData);
@@ -96,9 +96,9 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Blog $blog)
     {
-        $blog = Blog::findorFail($id);
+
         $blog->delete();
 
         return redirect()->route('admin.blog.index');

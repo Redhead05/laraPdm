@@ -15,7 +15,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('admin.blog.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.blog.update', $blog->id ?? '') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <section class="section">
@@ -28,7 +28,7 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <input type="text"
-                                                       class="form-control" id="title" name="title" value="{{ $blog->title }}">
+                                                       class="form-control" id="title" name="title" value="{{ $blog->title ?? '' }}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
@@ -37,7 +37,7 @@
                                                 <select class="form-control selectric" name="category_id">
                                                     <option value="">Pilih Category</option>
                                                     @foreach($categories as $category)
-                                                        <option value="{{ $category->id }}" {{ $blog->category_id == $category->id ? 'selected' : '' }}>
+                                                        <option value="{{ $category->id }}" {{ ($blog->category_id ?? null) == $category->id ? 'selected' : '' }}>
                                                             {{ $category->name }}
                                                         </option>
                                                     @endforeach
@@ -47,13 +47,16 @@
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <textarea class="summernote" name="description">{{ $blog->description  }}</textarea>
+                                                <textarea class="summernote" name="description">{{ $blog->description ?? '' }}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>File</label>
-                                            <input type="file"
-                                                   class="form-control" name="image">
+                                            <input type="file" class="form-control" name="image">
+                                            <input type="hidden" name="old_image" value="{{ $blog->image ?? '' }}">
+                                            @if($blog->image ?? false)
+                                                <img src="{{ asset($blog->image) }}" alt="Blog Image" width="200">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
