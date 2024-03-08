@@ -53,9 +53,7 @@
                                    id="table-1">
                                 <thead>
                                 <tr>
-                                    <th class="text-center">
-                                        #
-                                    </th>
+                                    <th class="text-center">No</th>
                                     <th>Judul</th>
                                     <th>Deskripsi</th>
                                     <th>Category</th>
@@ -66,31 +64,36 @@
                                 <tbody>
                                 @foreach($blogs as $blog)
                                     <tr>
-                                        <td>{{$loop->iteration }}</td>
+                                        <td class="text-align: center;">{{$loop->iteration }}</td>
                                         <td>{{$blog->title}}</td>
                                         <td>{{$blog->description}}</td>
-                                        <td>{{$blog->category->name}}</td>
+                                        <td class="text-align: center;">{{$blog->category->name}}</td>
                                         <td>
                                             <img alt="image"
                                                  src="{{ asset($blog->image) }}"
                                                  class="rounded-circle"
-                                                 width="35"
+                                                 width="40"
                                                  data-toggle="tooltip"
                                                  title="{{$blog->title}}">
                                         </td>
                                         <td class="card-body">
 {{--                                            <a href="{{ route('admin.blog.edit', $blog->id) }}"--}}
 {{--                                               class="btn btn-icon btn-primary btnEdit"><i class="far fa-edit"></i></a>--}}
-                                            <button class="btn btn-primary"
-                                                    data-toggle="modal"
-                                                    data-target="#editBlogModal">edit</button>
+{{--                                            <button class="btn btn-primary"--}}
+{{--                                                    data-toggle="modal"--}}
+{{--                                                    data-target="#editBlogModal">edit</button>--}}
                                             <form action="{{ route('admin.blog.destroy', $blog->id) }}" method="POST">
+                                            <div class="buttons">
+                                                <a class="btn btn-icon btn-primary"
+                                                    data-toggle="modal"
+                                                   data-target="#editBlogModal"><i class="far fa-edit"></i></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-icon btn-danger">
                                                     <i class="fas fa-times"></i>
                                                 </button>
                                             </form>
+
                                         </td>
                                     </tr>
                                 @endforeach
