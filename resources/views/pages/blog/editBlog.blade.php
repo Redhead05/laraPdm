@@ -1,8 +1,8 @@
-{{--    modal tambah blog--}}
+
 <div class="modal fade"
      tabindex="-1"
      role="dialog"
-     id="editBlogModal">
+     id="editBlog">
     <div class="modal-dialog"
          role="document">
         <div class="modal-content">
@@ -28,7 +28,7 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <input type="text"
-                                                       class="form-control" id="title" name="title" value="{{ $blog->title ?? '' }}">
+                                                       class="form-control" id="title" name="title" value="{{ $blog->title ?? ''}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
@@ -55,7 +55,7 @@
                                             <input type="file" class="form-control" name="image">
                                             <input type="hidden" name="old_image" value="{{ $blog->image ?? '' }}">
                                             @if($blog->image ?? false)
-                                                <img src="{{ asset($blog->image) }}" alt="Blog Image" width="200">
+                                                <img id="blogImage" src="{{ asset($blog->image) }}" alt="Blog Image" width="200">
                                             @endif
                                         </div>
                                     </div>
@@ -75,3 +75,12 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <!-- JS Libraies -->
+    <script src="{{ asset('library/prismjs/prism.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="{{ asset('js/page/bootstrap-modal.js') }}"></script>
+@endpush
+
+

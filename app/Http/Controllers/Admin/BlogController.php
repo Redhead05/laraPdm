@@ -21,6 +21,7 @@ class BlogController extends Controller
         $categories = Category::all();
 
         return view('pages.blog.blog', compact('type_menu','categories','blogs'));
+
     }
 
     /**
@@ -34,7 +35,7 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BlogRequest $request)
+    public function store(BlogRequest $request): \Illuminate\Http\RedirectResponse
     {
         $requestData = $request->all();
         $requestData['slug'] = Str::slug($request->title);
@@ -67,31 +68,39 @@ class BlogController extends Controller
     public function edit(string $id)
     {
         $blog = Blog::findOrFail($id);
+        $categories = Category::all();
 
-        return view('pages.blog.editBlog', compact('blog'));
+        if (request()->expectsJson()) {
+            $blog->image = asset($blog->image);
+            return response()->json($blog);
+        }
+
+        return view('pages.blog.editBlog', compact('blog', 'categories'));
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(BlogRequest $request, string $id)
+    public function update(Request $request, string $id): \Illuminate\Http\RedirectResponse
     {
         $blog = Blog::findOrFail($id);
         $requestData = $request->all();
         $requestData['slug'] = Str::slug($request->title);
 
-        //handle image upload
+        // Handle the image upload
         if($request->hasFile('image')){
             $image = $request->file('image');
-            $blog->image= $blog->uploadImage($image);
+            $requestData['image'] = $blog->uploadImage($image);
         } else {
-            $blog->image = $request->old_image;
+            $requestData['image'] = $request->old_image;
         }
 
         $blog->update($requestData);
 
+        // Return the URL of the uploaded image
+//        return response()->json(['image' => asset($requestData['image'])]);
         return redirect()->route('admin.blog.index');
     }
+
 
     /**
      * Remove the specified resource from storage.

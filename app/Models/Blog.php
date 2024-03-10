@@ -28,16 +28,19 @@ class Blog extends Model
         $imageName = $image->getClientOriginalName();
         $imagePath = public_path('images/'.$imageName);
 
-    // Check if the image already exists
+        // chek jika file sudah ada
         if (file_exists($imagePath)) {
             // Delete the existing image
             unlink($imagePath);
         }
 
-    // Move the uploaded image to the directory
+        // save ke directory
         $image->move(public_path('images'), $imageName);
 
-        return '/images/'.$imageName;
+        // cara update attribute image
+        $this->attributes['image'] = '/images/'.$imageName;
+
+        return $this->attributes['image'];
     }
 
     // Accessor descripton dari database ke view
