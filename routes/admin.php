@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\TeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('blog', \App\Http\Controllers\Admin\BlogController::class);
+    Route::resource('team', \App\Http\Controllers\Admin\TeamController::class);
 });
 //    Route::get('/layout-default-layout', function () {
 //        return view('pages.layout-default-layout', ['type_menu' => 'layout']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -13,7 +14,8 @@ class TeamController extends Controller
     public function index()
     {
         $type_menu = 'team';
-        return view('pages.team.team', compact('type_menu'));
+        $teams = Team::all();
+        return view('pages.team.team', compact('type_menu','teams'));
     }
 
     /**
