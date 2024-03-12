@@ -17,7 +17,7 @@ class BlogController extends Controller
     public function index()
     {
         $type_menu = 'team';
-        $blogs = Blog::all();
+        $blogs = Blog::orderBy('created_at', 'desc')->get();
         $categories = Category::all();
 
         return view('pages.blog.blog', compact('type_menu','categories','blogs'));
@@ -65,7 +65,7 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Blog $id)
     {
         $blog = Blog::findOrFail($id);
         $categories = Category::all();

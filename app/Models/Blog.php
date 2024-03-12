@@ -43,11 +43,17 @@ class Blog extends Model
         return $this->attributes['image'];
     }
 
-    // Accessor descripton dari database ke view
-    public function getDescriptionAttribute($value)
+    //slug
+    public function getRouteKeyName()
     {
-        return strip_tags($value);
+        return 'slug';
     }
+
+    // Accessor descripton dari database ke view
+//    public function getDescriptionAttribute($value)
+//    {
+//        return strip_tags($value);
+//    }
 //    // Mutator description dari add view ke database
 //    public function getRawDescriptionAttribute()
 //    {
