@@ -34,7 +34,7 @@
                                 <div class="card-body">
                                     <button class="btn btn-primary btnAdd"
                                             data-toggle="modal"
-                                            data-target="#exampleModal">Add</button>
+                                            data-target="#addBlog">Add</button>
                                 </div>
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -49,7 +49,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table-hover table"
-                                           id="table-1">
+                                           id="crudDataTable">
                                         <thead>
                                         <tr>
                                             <th class="text-center">
@@ -62,43 +62,7 @@
                                             <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        @foreach($blogs as $blog)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$blog->title}}</td>
-                                                <td>
-                                                    <div class="content">
-                                                        {{$blog->description}}
-                                                    </div>
-                                                    <span class="read-more"></span>
-                                                </td>
-                                                <td>{{$blog->category->name}}</td>
-                                                <td>
-                                                    <img alt="image"
-                                                         src="{{ asset($blog->image) }}"
-                                                         class="rounded-circle"
-                                                         width="35"
-                                                         data-toggle="tooltip"
-                                                         title="{{$blog->title}}">
-                                                </td>
-                                                <td>
-
-                                                    <form action="{{ route('admin.blog.destroy', $blog->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-icon btn-danger">
-                                                                <i class="fas fa-times"></i>
-                                                            </button>
-                                                        <a href="{{ route('admin.blog.edit', $blog) }}"
-                                                           class="btn btn-icon btn-primary btnEdit"
-                                                           data-toggle="modal"
-                                                           data-target="#editBlog"><i class="far fa-edit"></i></a>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -114,98 +78,53 @@
 
     @include('pages.blog.editBlog')
 
-
 @push('scripts')
         <!-- JS Libraies -->
-{{--        <script src="{{ asset('admin/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js')}}"></script> --}}--}}
-        {{--<script src="{{ asset('admin/library/datatables/media/js/jquery.dataTables.min.js') }}"></script>--}}
         <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
-
+        <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
         <script src="{{ asset('admin/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
         {{--    create Blog--}}
         <script src="{{ asset('admin/library/summernote/dist/summernote-bs4.js') }}"></script>
         <script src="{{ asset('admin/library/codemirror/lib/codemirror.js') }}"></script>
         <script src="{{ asset('admin/library/codemirror/mode/javascript/javascript.js') }}"></script>
-        <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
-{{--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
-
         <!-- Page Specific JS File -->
         <script src="{{ asset('admin/js/page/modules-datatables.js') }}"></script>
         <script src="{{ asset('admin/library/prismjs/prism.js') }}"></script>
-
-
         <script src="{{ asset('admin/js/page/bootstrap-modal.js') }}"></script>
-
         {{--    jquery trigger modal--}}
         <script>
-            $(".btnAdd").click(function (){
-                $("#addBlog").modal('show');
-            })
-            // $(".btnEdit").click(function (){
-            //     $("#editBlog").modal('show');
-            // })
-            </script>
-        <script>
-            $(document).on('click', '.btnEdit', function(event) {
-                event.preventDefault();
-
-                var url = $(this).attr('href');
-
-                $.get(url, function(data) {
-                    $('#editBlog #title').val(data.title);
-                    $('#editBlog select[name="category_id"]').val(data.category_id);
-                    $('#editBlog .summernote').summernote('code', data.description);
-                    $('#editBlog #blogImage').attr('src', data.image);
-
-                    $('#editBlog form').attr('action', '/admin/blog/' + data.id);
-                });
-
-                $("#editBlog").modal('show');
-            });
-        </script>
-        {{--    readmore --}}
-        <script>
             $(document).ready(function() {
-                var maxLength = 100; // maximum number of characters to display
-                $(".content").each(function() {
-                    var myStr = $(this).text();
-                    if ($.trim(myStr).length > maxLength) {
-                        var newStr = myStr.substring(0, maxLength);
-                        var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
-                        $(this).empty().html(newStr);
-                        $(this).append('<br><a href="javascript:void(0);" class="read-more">read more...</a>');
-                        $(this).append('<span class="more-text" style="display: none;">' + removedStr + '</span>');
-                    }
-                });
-                $(".read-more").click(function() {
-                    $(this).siblings(".more-text").show();
-                    $(this).remove();
+                var dataTable = $('#crudDataTable').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('admin.blog.index') }}",
+                    order: [[0, 'desc']],
+                    pageLength: 10, // Default number of rows to display
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Dropdown for selecting number of rows per page
+                    paging: true, // Disable paging
+                    searching: true, // Disable searching
+                    columns: [
+                        {data: 'id', name: 'id'},
+                        {data: 'title', name: 'title'},
+                        {data: 'description', name: 'description'},
+                        {
+                            data: 'image', name: 'image', orderable: false, searchable: false,
+                            render: function (data, type, full, meta) {
+                                return "<img src=\"" + data + "\" height=\"50\"/>";
+                            },
+                        },
+                        {data: 'slug', name: 'slug'},
+                        {data: 'category.name', name: 'category.name'},
+                        {data: 'action', name: 'action', orderable: false, searchable: false},
+                    ]
                 });
             });
         </script>
         <script>
             $(document).ready(function() {
-                $('.summernote').summernote({
-                    height: 150,
-                    tabsize: 2,
-                    toolbar: [
-                        ['style', ['bold', 'italic', 'underline', 'clear']],
-                        ['font', ['strikethrough', 'superscript', 'subscript']],
-                        ['fontsize', ['fontsize']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['height', ['height']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video']],
-                        ['view', ['fullscreen', 'codeview', 'help']]
-                    ],
-                    callbacks: {
-                        onInit: function() {
-                            $('.summernote').summernote('codeview.activate');
-                        }
-                    }
+                $('.btnAdd').click(function() {
+                    $('#addBlog').modal('show');
                 });
             });
         </script>
-
 @endpush

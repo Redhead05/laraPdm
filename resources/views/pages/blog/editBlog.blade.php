@@ -35,12 +35,7 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <select class="form-control selectric" name="category_id">
-                                                    <option value="">Pilih Category</option>
-                                                    @foreach($categories as $category)
-                                                        <option value="{{ $category->id }}" {{ ($blog->category_id ?? null) == $category->id ? 'selected' : '' }}>
-                                                            {{ $category->name }}
-                                                        </option>
-                                                    @endforeach
+
                                                 </select>
                                             </div>
                                         </div>

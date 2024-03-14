@@ -8,20 +8,38 @@ use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $type_menu = 'team';
-        $blogs = Blog::orderBy('created_at', 'desc')->get();
-        $categories = Category::all();
+            $type_menu = 'dashboard';
+            $categories = Category::all();
+        if ($request->ajax()) {
+            $data = Blog::with('category')->latest()->get();
+            $data = $data->sortByDesc('id');
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('image', function($row){
+                    return $row->image; // Assuming 'image' is the column name in your blogs table
+                })
+                ->addColumn('action', function($row){
+                    $editUrl = route('admin.blog.edit', $row->id);
+                    $deleteUrl = route('admin.blog.destroy', $row->id);
 
-        return view('pages.blog.blog', compact('type_menu','categories','blogs'));
+                    $btn = '<a href="'.$editUrl.'" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn .= ' <a href="'.$deleteUrl.'" class="delete btn btn-danger btn-sm">Delete</a>';
 
+                    return $btn;
+                })
+                ->rawColumns(['action', 'image']) // Add 'image' to rawColumns to avoid escaping HTML
+                ->make(true);
+        }
+        return view('pages.blog.blog', compact('type_menu', 'categories'));
     }
 
     /**
@@ -29,27 +47,29 @@ class BlogController extends Controller
      */
     public function create()
     {
-      //
+        $categories = Category::all();
+        return view('pages.blog.createBlog', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BlogRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(BlogRequest $request)
     {
-        $requestData = $request->all();
-        $requestData['slug'] = Str::slug($request->title);
+        $blog = new Blog;
 
-        $blog = Blog::create($requestData);
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->category_id = $request->category_id;
 
-        // Handle the image upload
-        if($request->hasFile('image')){
+        if($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = $blog->uploadImage($image);
-
-            // Update the image attribute
-            $blog->update(['image' => $imageName]);
+            $blog->image = $blog->uploadImage($image);
         }
+
+        $blog->slug = Str::slug($request->title, '-');
+
+        $blog->save();
 
         return redirect()->route('admin.blog.index');
     }
@@ -67,38 +87,13 @@ class BlogController extends Controller
      */
     public function edit(Blog $id)
     {
-        $blog = Blog::findOrFail($id);
-        $categories = Category::all();
-
-        if (request()->expectsJson()) {
-            $blog->image = asset($blog->image);
-            return response()->json($blog);
-        }
-
-        return view('pages.blog.editBlog', compact('blog', 'categories'));
     }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id): \Illuminate\Http\RedirectResponse
     {
-        $blog = Blog::findOrFail($id);
-        $requestData = $request->all();
-        $requestData['slug'] = Str::slug($request->title);
 
-        // Handle the image upload
-        if($request->hasFile('image')){
-            $image = $request->file('image');
-            $requestData['image'] = $blog->uploadImage($image);
-        } else {
-            $requestData['image'] = $request->old_image;
-        }
-
-        $blog->update($requestData);
-
-        // Return the URL of the uploaded image
-//        return response()->json(['image' => asset($requestData['image'])]);
-        return redirect()->route('admin.blog.index');
     }
 
 
@@ -108,8 +103,6 @@ class BlogController extends Controller
     public function destroy(Blog $blog)
     {
 
-        $blog->delete();
-
-        return redirect()->route('admin.blog.index');
     }
+
 }
