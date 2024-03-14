@@ -31,7 +31,7 @@ class BlogController extends Controller
                     $editUrl = route('admin.blog.edit', $row->id);
                     $deleteUrl = route('admin.blog.destroy', $row->id);
 
-                    $btn = '<a href="'.$editUrl.'" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn = '<a href="javascript:" data-id="'.$row->id.'" class="edit btn btn-primary btn-sm">Edit</a>';
                     $btn .= ' <a href="'.$deleteUrl.'" class="delete btn btn-danger btn-sm">Delete</a>';
 
                     return $btn;
@@ -85,15 +85,30 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Blog $id)
+    public function edit(Blog $blog)
     {
+       $categories = Category::all();
+            return view('pages.blog.editBlog', compact('blog', 'categories'));
     }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): \Illuminate\Http\RedirectResponse
+    public function update(BlogRequest $request, Blog $blog)
     {
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->category_id = $request->category_id;
 
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $blog->image = $blog->uploadImage($image);
+        }
+
+        $blog->slug = Str::slug($request->title, '-');
+
+        $blog->save();
+
+        return redirect()->route('admin.blog.index');
     }
 
 
@@ -102,7 +117,9 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
+        $blog->delete();
 
+        return redirect()->route('admin.blog.index');
     }
 
 }
