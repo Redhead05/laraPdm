@@ -27,6 +27,9 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <select class="form-control selectric" name="category_id" id="category_id">
+                                                    @foreach($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -34,7 +37,6 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <textarea class="summernote" name="description" id="description"></textarea>
-{{--                                                summer not set value --}}
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -73,34 +75,42 @@
     </script>
         <script>
             $(document).ready(function() {
-            $(document).on('click', '.edit', function() {
-                var id = $(this).data('id'),
-                    url = $(this).data('url');
+                $(document).on('click', '.edit', function() {
+                    var id = $(this).data('id'),
+                        url = $(this).data('url');
 
-                // Make an AJAX request to get the blog data
-                $.ajax({
-                    url: url,
-                    // url: '/admin/blog/' + id,
-                    // url: '/admin/blog/' + id + '/edit',
-                    method: 'GET',
-                    success: function(data) {
-                        console.log(data);
-                        // Populate the form fields with the received data
-                        $('#editForm #title').val(data.title);
-                        $('#editForm #category_id').val(data.category_id);
-                        $('#editForm #description').val(data.description);
-                        $('#editForm #image').attr('src', data.image);
-                        $('#editForm').attr('action', '/admin/blog/' + id);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        // Handle any errors
-                        console.error(textStatus, errorThrown);
-                    }
+                    // Make an AJAX request to get the blog data
+                    $.ajax({
+                        url: url,
+                        method: 'GET',
+                        success: function(data) {
+                            console.log(data);
+                            // Populate the form fields with the received data
+                            $('#editForm #title').val(data.blog.title);
+                            $('#editForm #description').summernote('code', data.blog.description);
+                            $('#editForm #image').attr('src', data.blog.image);
+                            $('#editForm').attr('action', '/admin/blog/' + id);
+
+                            // Populate the category_id dropdown with the received categories
+                            var categoryDropdown = $('#editForm #category_id');
+                            categoryDropdown.empty(); // Remove existing options
+                            $.each(data.categories, function(index, category) {
+                                var option = $('<option></option>').attr('value', category.id).text(category.name);
+                                if (category.id === data.blog.category_id) {
+                                    option.attr('selected', 'selected');
+                                }
+                                categoryDropdown.append(option);
+                            });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            // Handle any errors
+                            console.error(textStatus, errorThrown);
+                        }
+                    });
+                    // Show the modal
+                    $('#editBlog').modal('show');
                 });
-                // Show the modal
-                $('#editBlog').modal('show');
             });
-        });
     </script>
 @endpush
 

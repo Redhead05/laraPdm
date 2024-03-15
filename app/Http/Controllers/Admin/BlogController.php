@@ -79,7 +79,7 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-//        dd($id);
+        //
     }
 
     /**
@@ -89,8 +89,12 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($id);
         $categories = Category::all();
-//        dd($blog);
-        return response()->json($blog);
+
+        $data = [
+            'blog' => $blog,
+            'categories' => $categories
+        ];
+        return response()->json($data);
     }
     /**
      * Update the specified resource in storage.
