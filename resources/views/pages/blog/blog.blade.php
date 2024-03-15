@@ -129,33 +129,5 @@
                 });
             });
         </script>
-        <script>
-            $(document).ready(function() {
-                $(document).on('click', '.edit', function() {
-                    var id = $(this).data('id');
 
-                    // Make an AJAX request to get the blog data
-                    $.ajax({
-                        url: '/admin/blog/' + id, // Replace with the URL to your get blog route
-                        method: 'GET',
-                        success: function(data) {
-                            console.log(data);
-                            // Populate the form fields with the received data
-                            $('#editForm #title').val(data.title);
-                            $('#editForm #category_id').val(data.category_id);
-                            $('#editForm #description').val(data.description);
-                            $('#editForm #image').attr('src', data.image);
-                            $('#editForm').attr('action', '/admin/blog/' + id);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            // Handle any errors
-                            console.error(textStatus, errorThrown);
-                        }
-                    });
-
-                    // Show the modal
-                    $('#editBlog').modal('show');
-                });
-            });
-        </script>
 @endpush

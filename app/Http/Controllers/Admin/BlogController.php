@@ -31,7 +31,7 @@ class BlogController extends Controller
                     $editUrl = route('admin.blog.edit', $row->id);
                     $deleteUrl = route('admin.blog.destroy', $row->id);
 
-                    $btn = '<a href="javascript:" data-id="'.$row->id.'" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn = '<a href="javascript:" data-id="'.$row->id.'" data-url="'.route('admin.blog.edit', $row->id).'" class="edit btn btn-primary btn-sm">Edit</a>';
                     $btn .= ' <a href="'.$deleteUrl.'" class="delete btn btn-danger btn-sm">Delete</a>';
 
                     return $btn;
@@ -79,16 +79,18 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+//        dd($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Blog $blog)
+    public function edit($id)
     {
-       $categories = Category::all();
-            return view('pages.blog.editBlog', compact('blog', 'categories'));
+        $blog = Blog::findOrFail($id);
+        $categories = Category::all();
+//        dd($blog);
+        return response()->json($blog);
     }
     /**
      * Update the specified resource in storage.

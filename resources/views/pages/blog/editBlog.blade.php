@@ -34,6 +34,7 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <textarea class="summernote" name="description" id="description"></textarea>
+{{--                                                summer not set value --}}
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -63,9 +64,6 @@
     <script src="{{ asset('admin/js/page/bootstrap-modal.js') }}"></script>
     <script>
         $(document).ready(function() {
-            // Initialize the tooltip
-            $(".rounded-circle").tooltip();
-
             // Hide the tooltip
             $(".rounded-circle").on('click', function() {
                 $(this).tooltip("close"); // For jQuery UI
@@ -73,21 +71,37 @@
             });
         });
     </script>
-    <script>
-        document.querySelectorAll('.edit').forEach(function(button) {
-            button.addEventListener('click', function() {
-                var url = this.getAttribute('data-url');
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Handle the received data
-                        // For example, populate the edit form fields with the received data
-                    })
-                    .catch(error => console.error('Error:', error));
+        <script>
+            $(document).ready(function() {
+            $(document).on('click', '.edit', function() {
+                var id = $(this).data('id'),
+                    url = $(this).data('url');
+
+                // Make an AJAX request to get the blog data
+                $.ajax({
+                    url: url,
+                    // url: '/admin/blog/' + id,
+                    // url: '/admin/blog/' + id + '/edit',
+                    method: 'GET',
+                    success: function(data) {
+                        console.log(data);
+                        // Populate the form fields with the received data
+                        $('#editForm #title').val(data.title);
+                        $('#editForm #category_id').val(data.category_id);
+                        $('#editForm #description').val(data.description);
+                        $('#editForm #image').attr('src', data.image);
+                        $('#editForm').attr('action', '/admin/blog/' + id);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Handle any errors
+                        console.error(textStatus, errorThrown);
+                    }
+                });
+                // Show the modal
+                $('#editBlog').modal('show');
             });
         });
     </script>
-
 @endpush
 
 
