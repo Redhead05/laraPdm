@@ -17,30 +17,50 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-            $type_menu = 'dashboard';
-            $categories = Category::all();
         if ($request->ajax()) {
-            $data = Blog::with('category')->latest()->get();
-            $data = $data->sortByDesc('id');
+            $start = $request->start ?? '';
+            $length = $request->length ?? ''; // batasi offset permintaan dari yang req ke server
+            $data = Blog::with('category')
+                ->orderBy('id','desc')
+                ->skip($start)
+                ->take($length)
+                ->get();
+
+            $totalData = Blog::count();
+            $totalFiltered = $totalData; // menambahkan filtering
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function($row){
-                    return $row->image; // Assuming 'image' is the column name in your blogs table
+                    return $row->image;
                 })
                 ->addColumn('action', function($row){
                     $editUrl = route('admin.blog.edit', $row->id);
-                    $deleteUrl = route('admin.blog.destroy', $row->id);
+                    $deleteUrl = route('admin.blog.destroy', $row->slug);
 
-                    $btn = '<a href="javascript:" data-id="'.$row->id.'" data-url="'.route('admin.blog.edit', $row->id).'" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= ' <a href="'.$deleteUrl.'" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $btn = '<a href="javascript:" data-id="'.$row->id.'" data-url="'.route('admin.blog.edit', $row->id).'" class="edit btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
+                    $btn .= ' <a href="'.$deleteUrl.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
 
                     return $btn;
                 })
-                ->rawColumns(['action', 'image']) // Add 'image' to rawColumns to avoid escaping HTML
+                ->rawColumns(['action', 'image'])
+                ->setRowId(function ($data) {
+                    return $data->id;
+                })
+                ->with([
+                    'recordsTotal' => $totalData,
+                    'recordsFiltered' => $totalFiltered,
+                ])
+                ->skipPaging() //dokumentasi yajra untuk menghilangkan pagination bawaan dari datatables
                 ->make(true);
         }
+
+        $type_menu = 'dashboard';
+        $categories = Category::all();
+
         return view('pages.blog.blog', compact('type_menu', 'categories'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -99,8 +119,10 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(BlogRequest $request, Blog $blog)
+    public function update(BlogRequest $request, $id)
     {
+        $blog = Blog::findOrFail($id);
+
         $blog->title = $request->title;
         $blog->description = $request->description;
         $blog->category_id = $request->category_id;
@@ -110,11 +132,9 @@ class BlogController extends Controller
             $blog->image = $blog->uploadImage($image);
         }
 
-        $blog->slug = Str::slug($request->title, '-');
-
         $blog->save();
 
-        return redirect()->route('admin.blog.index');
+        return response()->json(['message' => 'Blog updated successfully', 'blog' => $blog], 200);
     }
 
 
@@ -127,5 +147,4 @@ class BlogController extends Controller
 
         return redirect()->route('admin.blog.index');
     }
-
 }

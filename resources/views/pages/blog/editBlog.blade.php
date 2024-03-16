@@ -66,6 +66,9 @@
     <script src="{{ asset('admin/js/page/bootstrap-modal.js') }}"></script>
     <script>
         $(document).ready(function() {
+            // Initialize the tooltip
+            $(".rounded-circle").tooltip();
+
             // Hide the tooltip
             $(".rounded-circle").on('click', function() {
                 $(this).tooltip("close"); // For jQuery UI
@@ -74,6 +77,7 @@
         });
     </script>
         <script>
+            //edit blog
             $(document).ready(function() {
                 $(document).on('click', '.edit', function() {
                     var id = $(this).data('id'),
@@ -84,11 +88,14 @@
                         url: url,
                         method: 'GET',
                         success: function(data) {
-                            console.log(data);
+                            var imageUrl = "{{ asset('') }}" + data.blog.image;
+
                             // Populate the form fields with the received data
                             $('#editForm #title').val(data.blog.title);
                             $('#editForm #description').summernote('code', data.blog.description);
-                            $('#editForm #image').attr('src', data.blog.image);
+                            $('#editForm #image').attr('src', imageUrl);
+                            // $('#editForm #old_image').attr('src', imageUrl);
+                            $('#blogImage').attr('src', imageUrl); // Add this line
                             $('#editForm').attr('action', '/admin/blog/' + id);
 
                             // Populate the category_id dropdown with the received categories
@@ -107,10 +114,46 @@
                             console.error(textStatus, errorThrown);
                         }
                     });
+
                     // Show the modal
                     $('#editBlog').modal('show');
                 });
             });
+    </script>
+
+    <script>
+        //update blog
+        $(document).ready(function() {
+            $('#editForm').on('submit', function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Handle success
+                        // Remove any existing alert
+                        $('.alert-success').remove();
+
+                        // Add a new alert
+                        var alert = $('<div class="alert alert-success" role="alert"></div>');
+                        alert.text('Form submitted successfully');
+                        $('#editForm').prepend(alert);
+
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Handle error
+                        console.error(textStatus, errorThrown);
+                    }
+                });
+            });
+        });
     </script>
 @endpush
 

@@ -58,7 +58,6 @@
                                             <th>Judul</th>
                                             <th>Deskripsi</th>
                                             <th>Foto</th>
-                                            <th>slug</th>
                                             <th>Category</th>
                                             <th>Action</th>
                                         </tr>
@@ -100,12 +99,17 @@
                     serverSide: true,
                     ajax: "{{ route('admin.blog.index') }}",
                     order: [[0, 'desc']],
-                    pageLength: 10, // Default number of rows to display
-                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Dropdown for selecting number of rows per page
-                    paging: true, // Disable paging
-                    searching: true, // Disable searching
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                    paging: true,
+                    pageLength:10,
+                    searching: true,
                     columns: [
-                        {data: 'id', name: 'id'},
+                        {
+                            data: null, searchable: false, orderable: false,
+                            render: function (data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
+                        },
                         {data: 'title', name: 'title'},
                         {data: 'description', name: 'description'},
                         {
@@ -114,10 +118,9 @@
                                 return "<img src=\"" + data + "\" height=\"50\"/>";
                             },
                         },
-                        {data: 'slug', name: 'slug'},
                         {data: 'category.name', name: 'category.name'},
                         {data: 'action', name: 'action', orderable: false, searchable: false},
-                    ]
+                    ],
                 });
             });
         </script>
