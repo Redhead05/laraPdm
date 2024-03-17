@@ -18,41 +18,30 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $start = $request->start ?? '';
-            $length = $request->length ?? ''; // batasi offset permintaan dari yang req ke server
-            $data = Blog::with('category')
-                ->orderBy('id','desc')
-                ->skip($start)
-                ->take($length)
-                ->get();
+            $query = Blog::with('category')->orderBy('blogs.created_at','desc');
 
-            $totalData = Blog::count();
-            $totalFiltered = $totalData; // menambahkan filtering
-
-            return DataTables::of($data)
+            $datatables = DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('image', function($row){
                     return $row->image;
                 })
                 ->addColumn('action', function($row){
                     $editUrl = route('admin.blog.edit', $row->id);
-                    $deleteUrl = route('admin.blog.destroy', $row->slug);
+                    $deleteUrl = route('admin.blog.destroy', $row->id);
 
-                    $btn = '<a href="javascript:" data-id="'.$row->id.'" data-url="'.route('admin.blog.edit', $row->id).'" class="edit btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
-                    $btn .= ' <a href="'.$deleteUrl.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
+                    $btn = '<a href="javascript:" data-id="'.$row->id.'" data-url="'.route('admin.blog.edit', $row->id).'"
+                    class="edit btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
+                    $btn .= ' <a href="javascript:" data-id="'.$row->id.'" data-url="'.$deleteUrl.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
+//                    $btn .= ' <a href="'.$deleteUrl.'" data-id="'.$row->id.'" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
 
                     return $btn;
                 })
                 ->rawColumns(['action', 'image'])
                 ->setRowId(function ($data) {
                     return $data->id;
-                })
-                ->with([
-                    'recordsTotal' => $totalData,
-                    'recordsFiltered' => $totalFiltered,
-                ])
-                ->skipPaging() //dokumentasi yajra untuk menghilangkan pagination bawaan dari datatables
-                ->make(true);
+                });
+
+            return $datatables->make(true);
         }
 
         $type_menu = 'dashboard';
@@ -60,7 +49,6 @@ class BlogController extends Controller
 
         return view('pages.blog.blog', compact('type_menu', 'categories'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -141,10 +129,15 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blog $blog)
+    public function destroy($id)
     {
-        $blog->delete();
+        $blog = Blog::find($id);
 
-        return redirect()->route('admin.blog.index');
+        if ($blog) {
+            $blog->delete();
+            return response()->json(['message' => 'Blog post deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Blog post not found'], 404);
+        }
     }
 }

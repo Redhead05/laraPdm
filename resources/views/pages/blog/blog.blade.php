@@ -97,7 +97,13 @@
                 var dataTable = $('#crudDataTable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('admin.blog.index') }}",
+                    // stateSave: true,
+                    ajax: {
+                        url: "{{ route('admin.blog.index') }}",
+                        data: function(d) {
+                            d.searching = $('input[type="search"]').val();
+                        }
+                    },
                     order: [[0, 'desc']],
                     lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                     paging: true,
@@ -110,20 +116,51 @@
                                 return meta.row + meta.settings._iDisplayStart + 1;
                             }
                         },
-                        {data: 'title', name: 'title'},
-                        {data: 'description', name: 'description'},
+                        {data: 'title', name: 'title', orderable: true},
+                        {data: 'description', name: 'description', orderable: true},
                         {
                             data: 'image', name: 'image', orderable: false, searchable: false,
                             render: function (data, type, full, meta) {
                                 return "<img src=\"" + data + "\" height=\"50\"/>";
                             },
                         },
-                        {data: 'category.name', name: 'category.name'},
+                        {data: 'category.name', name: 'category.name', orderable: true},
                         {data: 'action', name: 'action', orderable: false, searchable: false},
                     ],
                 });
             });
         </script>
+        <script>
+        {{--    delete    --}}
+        $(document).ready(function() {
+            // Attach a click event handler to the delete buttons
+            $(document).on('click', '.delete', function(e) {
+                e.preventDefault();
+
+                var id = $(this).data('id');
+                var url = $(this).data('url');
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    type: 'DELETE',
+                    data: { id: id },
+                    success: function(response) {
+                        // Handle success here
+                        alert('Blog post deleted successfully');
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Handle error here
+                        alert('An error occurred while deleting the blog post');
+                    }
+                });
+            });
+        });
+        </script>
+
         <script>
             //modal add
             $(document).ready(function() {

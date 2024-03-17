@@ -9,7 +9,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('blog', \App\Http\Controllers\Admin\BlogController::class);
     Route::resource('team', \App\Http\Controllers\Admin\TeamController::class);
-    Route::get('/category', [BlogController::class, 'get']);
+
 });
 //    Route::get('/layout-default-layout', function () {
 //        return view('pages.layout-default-layout', ['type_menu' => 'layout']);
