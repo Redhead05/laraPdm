@@ -1,14 +1,34 @@
+@push('style')
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/selectric/public/selectric.css') }}">
 
-<div class="modal fade" tabindex="-1" role="dialog" id="editBlog">
-    <div class="modal-dialog" role="document">
+@endpush
+
+<div class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     id="editTeam">
+    <div class="modal-dialog"
+         role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Blog</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">Edit Team</h5>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" method="POST" enctype="multipart/form-data" id="editForm">
+            <form id="editTeamForm" action="" method="POST">
                 @csrf
                 @method('PUT')
                 <section class="section">
@@ -18,30 +38,56 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" id="title" name="title">
+                                                <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jabatan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <select class="form-control selectric" name="category_id" id="category_id">
-
-                                                </select>
+                                                <input type="text"
+                                                       class="form-control" id="jabatan" name="jabatan" required>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Facebook</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <textarea class="summernote" name="description" id="description"></textarea>
+                                                <input type="text"
+                                                       class="form-control" id="fb" name="fb" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-4">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Twitter</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <input type="text"
+                                                       class="form-control" id="twitter" name="twitter" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-4">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Instagram</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <input type="text"
+                                                       class="form-control" id="instagram" name="instagram" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-4">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mulai Jabatan</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <input type="date" class="form-control datepicker" id="start_date" name="start_date" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-4">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Akhir Jabatan</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <input type="date" class="form-control datepicker" id="end_date" name="end_date" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>File</label>
                                             <input type="file" class="form-control" name="image" id="image">
                                             <input type="hidden" name="old_image" id="old_image">
-                                            <img id="blogImage" src="" alt="Blog Image" width="200" class="rounded-circle">
+                                            <img id="teamImage" src="" alt="team Image" width="200" class="rounded-circle">
                                         </div>
                                     </div>
                                 </div>
@@ -50,109 +96,70 @@
                     </div>
                 </section>
                 <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Close</button>
+                    <button type="submit"
+                            class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 @push('scripts')
-    <script src="{{ asset('admin/library/prismjs/prism.js') }}"></script>
-
-
-    <script src="{{ asset('admin/js/page/bootstrap-modal.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            // Initialize the tooltip
-            $(".rounded-circle").tooltip();
-
-            // Hide the tooltip
-            $(".rounded-circle").on('click', function() {
-                $(this).tooltip("close"); // For jQuery UI
-                // $(this).tooltip('hide'); // For Bootstrap
-            });
-        });
-    </script>
-        <script>
-            //edit blog
-            $(document).ready(function() {
-                $(document).on('click', '.edit', function() {
-                    var id = $(this).data('id'),
-                        url = $(this).data('url');
-
-                    // Make an AJAX request to get the blog data
-                    $.ajax({
-                        url: url,
-                        method: 'GET',
-                        success: function(data) {
-                            var imageUrl = "{{ asset('') }}" + data.blog.image;
-
-                            // Populate the form fields with the received data
-                            $('#editForm #title').val(data.blog.title);
-                            $('#editForm #description').summernote('code', data.blog.description);
-                            $('#editForm #image').attr('src', imageUrl);
-                            // $('#editForm #old_image').attr('src', imageUrl);
-                            $('#blogImage').attr('src', imageUrl); // Add this line
-                            $('#editForm').attr('action', '/admin/blog/' + id);
-
-                            // Populate the category_id dropdown with the received categories
-                            var categoryDropdown = $('#editForm #category_id');
-                            categoryDropdown.empty(); // Remove existing options
-                            $.each(data.categories, function(index, category) {
-                                var option = $('<option></option>').attr('value', category.id).text(category.name);
-                                if (category.id === data.blog.category_id) {
-                                    option.attr('selected', 'selected');
-                                }
-                                categoryDropdown.append(option);
-                            });
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            // Handle any errors
-                            console.error(textStatus, errorThrown);
-                        }
-                    });
-
-                    // Show the modal
-                    $('#editBlog').modal('show');
-                });
-            });
-    </script>
+    <script src="{{ asset('admin/js/page/forms-advanced-forms.js') }}"></script>
+    {{--    <script src="{{ asset('admin/library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>--}}
+    <script src="{{ asset('admin/library/select2/diquest/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('admin/library/selectric/public/jry.selectric.min.js') }}"></script>
+    <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
+    <script src="{{ asset('admin/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
     <script>
-        //update blog
+        // To enable the tooltip
+        $("#summertext").tooltip("enable");
+    </script>
+    {{--    modal edit--}}
+    <script>
         $(document).ready(function() {
-            $('#editForm').on('submit', function(event) {
-                event.preventDefault();
+            // Attach a click event handler to the edit buttons
+            $(document).on('click', '.edit', function(e) {
+                e.preventDefault();
 
-                var formData = new FormData(this);
+                var id = $(this).data('id');
+                var url = $(this).data('url');
 
+                // Retrieve the team data from the server
                 $.ajax({
-                    url: $(this).attr('action'),
-                    method: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
+                    url: url,
+                    type: 'GET',
                     success: function(response) {
-                        // Handle success
-                        // Remove any existing alert
-                        $('.alert-success').remove();
+                        var imageUrl = "{{ asset('') }}" + response.team.image;
+                        // Populate the form fields in the edit modal with the team data
+                        $('#editTeamForm #name').val(response.team.name);
+                        $('#editTeamForm #jabatan').val(response.team.jabatan);
+                        $('#editTeamForm #fb').val(response.team.fb);
+                        $('#editTeamForm #twitter').val(response.team.twitter);
+                        $('#editTeamForm #instagram').val(response.team.instagram);
+                        $('#editTeamForm #start_date').val(response.team.start_date);
+                        $('#editTeamForm #end_date').val(response.team.end_date);
+                        $('#editTeamForm #image').attr('src', imageUrl);
+                        $('#teamImage').attr('src', imageUrl);
 
-                        // Add a new alert
-                        var alert = $('<div class="alert alert-success" role="alert"></div>');
-                        alert.text('Form submitted successfully');
-                        $('#editForm').prepend(alert);
+                        // Replace the field names and the form action URL with the actual ones used in your project
+                        // ...
 
-                        location.reload();
+                        // Update the form action
+                        $('#editTeamForm').attr('action', '/admin/team/' + id);
+
+                        // Show the edit modal
+                        $('#editTeam').modal('show');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        // Handle error
-                        console.error(textStatus, errorThrown);
+                        // Handle error here
+                        alert('An error occurred while retrieving the team data');
                     }
                 });
             });
         });
     </script>
 @endpush
-
-

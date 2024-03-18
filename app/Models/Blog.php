@@ -45,10 +45,10 @@ class Blog extends Model
     }
 
     //slug
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+//    public function getRouteKeyName()
+//    {
+//        return 'slug';
+//    }
 
     // Accessor descripton dari database ke view
 //    public function getDescriptionAttribute($value)

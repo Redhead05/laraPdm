@@ -28,7 +28,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.team.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <section class="section">
                     <div class="section-body">
@@ -37,10 +37,9 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text"
-                                                       class="form-control" id="title" name="title" required>
+                                                <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
@@ -54,7 +53,7 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Facebook</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <input type="text"
-                                                       class="form-control" id="facebook" name="facebook" required>
+                                                       class="form-control" id="fb" name="fb" required>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
@@ -74,15 +73,13 @@
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mulai Jabatan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text"
-                                                       class="form-control datepicker">
+                                                <input type="date" class="form-control datepicker" id="start_date" name="start_date" required>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Akhir Jabatan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text"
-                                                       class="form-control datepicker">
+                                                <input type="date" class="form-control datepicker" id="end_date" name="end_date" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -109,16 +106,12 @@
 </div>
 @push('scripts')
     <script src="{{ asset('admin/js/page/forms-advanced-forms.js') }}"></script>
-    <script src="{{ asset('admin/library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+{{--    <script src="{{ asset('admin/library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>--}}
     <script src="{{ asset('admin/library/select2/diquest/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('admin/library/selectric/public/jry.selectric.min.js') }}"></script>
     <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
     <script src="{{ asset('admin/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $(".datepicker").datepicker();
-        });
-    </script>
+
     <script>
         // To enable the tooltip
         $("#summertext").tooltip("enable");
