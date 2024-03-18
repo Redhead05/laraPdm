@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('jabatan');
             $table->string('fb')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->string('image');
 
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });

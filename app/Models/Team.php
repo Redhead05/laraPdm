@@ -14,5 +14,8 @@ class Team extends Model
         'fb',
         'twitter',
         'instagram',
+        'start_date',
+        'end_date',
+        'image'
         ];
 }
