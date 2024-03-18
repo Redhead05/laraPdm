@@ -1,3 +1,17 @@
+@push('style')
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('admin/library/selectric/public/selectric.css') }}">
+
+@endpush
+
 <div class="modal fade"
      tabindex="-1"
      role="dialog"
@@ -58,19 +72,19 @@
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Start</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mulai Jabatan</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <input type="text"
                                                        class="form-control datepicker">
                                             </div>
                                         </div>
-{{--                                        <div class="form-group row mb-4">--}}
-{{--                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">End</label>--}}
-{{--                                            <div class="col-sm-12 col-md-7">--}}
-{{--                                                <input type="text"--}}
-{{--                                                       class="form-control datepicker">--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                        <div class="form-group row mb-4">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Akhir Jabatan</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <input type="text"
+                                                       class="form-control datepicker">
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label>File</label>
                                             <input type="file"
@@ -94,15 +108,15 @@
     </div>
 </div>
 @push('scripts')
+    <script src="{{ asset('admin/js/page/forms-advanced-forms.js') }}"></script>
+    <script src="{{ asset('admin/library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('admin/library/select2/diquest/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('admin/library/selectric/public/jry.selectric.min.js') }}"></script>
     <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
     <script src="{{ asset('admin/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            if ($('.datepicker').length > 0) {
-                $(".datepicker").datepicker();
-            } else {
-                console.log("cek piker di dom.");
-            }
+            $(".datepicker").datepicker();
         });
     </script>
     <script>

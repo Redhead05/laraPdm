@@ -44,7 +44,7 @@
                     <a href="#">
                         <img class="mr-3 rounded"
                             width="30"
-                            src="{{ asset('img/products/product-3-50.png') }}"
+                            src="{{ asset('admin/img/products/product-3-50.png') }}"
                             alt="product">
                         oPhone S9 Limited Edition
                     </a>
@@ -53,7 +53,7 @@
                     <a href="#">
                         <img class="mr-3 rounded"
                             width="30"
-                            src="{{ asset('img/products/product-2-50.png') }}"
+                            src="{{ asset('admin/img/products/product-2-50.png') }}"
                             alt="product">
                         Drone X2 New Gen-7
                     </a>
@@ -62,7 +62,7 @@
                     <a href="#">
                         <img class="mr-3 rounded"
                             width="30"
-                            src="{{ asset('img/products/product-1-50.png') }}"
+                            src="{{ asset('admin/img/products/product-1-50.png') }}"
                             alt="product">
                         Headphone Blitz
                     </a>
@@ -104,7 +104,7 @@
                         class="dropdown-item dropdown-item-unread">
                         <div class="dropdown-item-avatar">
                             <img alt="image"
-                                src="{{ asset('img/avatar/avatar-1.png') }}"
+                                src="{{ asset('admin/img/avatar/avatar-1.png') }}"
                                 class="rounded-circle">
                             <div class="is-online"></div>
                         </div>
@@ -118,7 +118,7 @@
                         class="dropdown-item dropdown-item-unread">
                         <div class="dropdown-item-avatar">
                             <img alt="image"
-                                src="{{ asset('img/avatar/avatar-2.png') }}"
+                                src="{{ asset('admin/img/avatar/avatar-2.png') }}"
                                 class="rounded-circle">
                         </div>
                         <div class="dropdown-item-desc">
@@ -131,7 +131,7 @@
                         class="dropdown-item dropdown-item-unread">
                         <div class="dropdown-item-avatar">
                             <img alt="image"
-                                src="{{ asset('img/avatar/avatar-3.png') }}"
+                                src="{{ asset('admin/img/avatar/avatar-3.png') }}"
                                 class="rounded-circle">
                             <div class="is-online"></div>
                         </div>
@@ -145,7 +145,7 @@
                         class="dropdown-item">
                         <div class="dropdown-item-avatar">
                             <img alt="image"
-                                src="{{ asset('img/avatar/avatar-4.png') }}"
+                                src="{{ asset('admin/img/avatar/avatar-4.png') }}"
                                 class="rounded-circle">
                         </div>
                         <div class="dropdown-item-desc">
@@ -158,7 +158,7 @@
                         class="dropdown-item">
                         <div class="dropdown-item-avatar">
                             <img alt="image"
-                                src="{{ asset('img/avatar/avatar-5.png') }}"
+                                src="{{ asset('admin/img/avatar/avatar-5.png') }}"
                                 class="rounded-circle">
                         </div>
                         <div class="dropdown-item-desc">
@@ -243,7 +243,7 @@
                 data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image"
-                    src="{{ asset('img/avatar/avatar-1.png') }}"
+                    src="{{ asset('admin/img/avatar/avatar-1.png') }}"
                     class="rounded-circle mr-1">
                 <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
             </a>

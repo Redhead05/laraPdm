@@ -69,8 +69,6 @@
 </div>
 @push('scripts')
     <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
-
-
     <script>
         // To enable the tooltip
         $("#summertext").tooltip("enable");
