@@ -678,8 +678,8 @@
     <script src="{{ asset('admin/library/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
     <script src="{{ asset('admin/library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
     <script src="{{ asset('admin/library/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('admin/library/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
+    <script src="{{ asset('admin/library/select2/diquest/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('admin/library/selectric/public/jry.selectric.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('admin/js/page/forms-advanced-forms.js') }}"></script>

@@ -35,7 +35,7 @@
                                 <div class="card-body">
                                     <button class="btn btn-primary btnAdd"
                                             data-toggle="modal"
-                                            data-target="#addTeam">Add</button>
+                                            data-target="#">Add</button>
                                 </div>
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -86,7 +86,6 @@
     <!-- JS Libraies -->
     <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
-    <script src="{{ asset('admin/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
     {{--    create Blog--}}
     <script src="{{ asset('admin/library/summernote/dist/summernote-bs4.js') }}"></script>
     <script src="{{ asset('admin/library/codemirror/lib/codemirror.js') }}"></script>
@@ -96,6 +95,7 @@
     <script src="{{ asset('admin/library/prismjs/prism.js') }}"></script>
     <script src="{{ asset('admin/js/page/bootstrap-modal.js') }}"></script>
     {{--    jquery trigger modal--}}
+{{--    <script src="{{ asset('admin/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>--}}
     <script>
         $(document).ready(function() {
             var dataTable = $('#crudDataTable').DataTable({

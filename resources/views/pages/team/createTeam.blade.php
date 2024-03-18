@@ -64,13 +64,13 @@
                                                        class="form-control datepicker">
                                             </div>
                                         </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">End</label>
-                                            <div class="col-sm-12 col-md-7">
-                                                <input type="text"
-                                                       class="form-control datepicker">
-                                            </div>
-                                        </div>
+{{--                                        <div class="form-group row mb-4">--}}
+{{--                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">End</label>--}}
+{{--                                            <div class="col-sm-12 col-md-7">--}}
+{{--                                                <input type="text"--}}
+{{--                                                       class="form-control datepicker">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div class="form-group">
                                             <label>File</label>
                                             <input type="file"
@@ -97,8 +97,12 @@
     <script src="{{ asset('admin/library/selectric/public/jquery.selectric.min.js') }}"></script>
     <script src="{{ asset('admin/library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
     <script>
-        $('#addTeam').on('shown.bs.modal', function () {
-            $(".datepicker").datepicker();
+        $(document).ready(function() {
+            if ($('.datepicker').length > 0) {
+                $(".datepicker").datepicker();
+            } else {
+                console.log("cek piker di dom.");
+            }
         });
     </script>
     <script>
