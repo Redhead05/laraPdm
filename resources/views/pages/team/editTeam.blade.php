@@ -162,4 +162,38 @@
             });
         });
     </script>
+    <script>
+        //update
+        $(document).ready(function() {
+            $('#editTeamForm').on('submit', function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+                formData.append('_token', $('input[name=_token]').val());
+                formData.append('_method', 'PUT');
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Handle success
+                        $('.alert-success').remove();
+
+                        var alert = $('<div class="alert alert-success" role="alert"></div>');
+                        alert.text('Form submitted successfully');
+                        $('#editTeamForm').prepend(alert);
+
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Handle error
+                        console.error(textStatus, errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
 @endpush

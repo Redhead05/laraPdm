@@ -22,6 +22,12 @@ class TeamController extends Controller
 //            dd($query->toArray());
             $datatables = DataTables::of($query)
                 ->addIndexColumn()
+                ->addColumn('start_date', function($row){
+                    return $row->start_date;
+                })
+                ->addColumn('end_date', function($row){
+                    return $row->end_date;
+                })
                 ->addColumn('image', function($row){
                     return $row->image;
                 })
@@ -43,7 +49,7 @@ class TeamController extends Controller
             return $datatables->make(true);
         }
 
-        $type_menu = 'dashboard';
+        $type_menu = 'team';
 
         return view('pages.team.team', compact('type_menu'));
     }
@@ -112,6 +118,15 @@ class TeamController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        {
+            $team = Team::find($id);
+
+            if ($team) {
+                $team->delete();
+                return response()->json(['message' => 'Blog post deleted successfully'], 200);
+            } else {
+                return response()->json(['message' => 'Blog post not found'], 404);
+            }
+        }
     }
 }

@@ -21,15 +21,28 @@ class TeamRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required',
-            'jabatan' => 'required',
-            'fb' => 'nullable',
-            'twitter' => 'nullable',
-            'instagram' => 'nullable',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'image' => 'required|image',
-        ];
+        if ($this->isMethod('post')) {
+            return [
+                'name' => 'required',
+                'jabatan' => 'required',
+                'fb' => 'nullable',
+                'twitter' => 'nullable',
+                'instagram' => 'nullable',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ];
+        } else {
+            return [
+                'name' => 'required',
+                'jabatan' => 'required',
+                'fb' => 'nullable',
+                'twitter' => 'nullable',
+                'instagram' => 'nullable',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ];
+        }
     }
 }

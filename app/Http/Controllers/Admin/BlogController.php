@@ -44,7 +44,7 @@ class BlogController extends Controller
             return $datatables->make(true);
         }
 
-        $type_menu = 'dashboard';
+        $type_menu = 'team';
         $categories = Category::all();
 
         return view('pages.blog.blog', compact('type_menu', 'categories'));

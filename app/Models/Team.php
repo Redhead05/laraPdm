@@ -40,4 +40,14 @@ class Team extends Model
 
         return $this->attributes['image'];
     }
+
+    public function getStartDateAttribute($value)
+    {
+        return date('d-m-Y', strtotime($value));
+    }
+
+    public function getEndDateAttribute($value)
+    {
+        return date('d-m-Y', strtotime($value));
+    }
 }
