@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogDetailsController;
 use App\Http\Controllers\IndexController;
@@ -18,6 +19,6 @@ Route::resource('/team', TeamController::class);
 
 Route::resource('/blog-details', BlogDetailsController::class);
 
-
+Route::get('/logins', [LoginController::class, 'showLoginForm'])->name('login');
 
 
