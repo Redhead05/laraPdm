@@ -58,6 +58,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        \Log::info('Token generated', ['token' => $token]);
+
         return $this->respondWithToken($token);
     }
 

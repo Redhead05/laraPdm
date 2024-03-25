@@ -9,15 +9,15 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="{{ asset('login/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('auth/login/css/style.css')}}">
 
 </head>
-<body class="img js-fullheight" style="background-image: url({{asset('login/images/bg.jpg')}});">
+<body class="img js-fullheight" style="background-image: url({{asset('auth/login/images/bg.jpg')}});">
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Login #10</h2>
+                <h2 class="heading-section">Login #24</h2>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -62,21 +62,16 @@
                             </div>
                         </div>
                     </form>
-                    <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-                    <div class="social d-flex text-center">
-                        <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
-                        <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<script src="{{asset('login/js/jquery.min.js')}}"></script>
-<script src="{{asset('login/js/popper.js')}}"></script>
-<script src="{{asset('login/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('login/js/main.js')}}"></script>
+<script src="{{asset('auth/login/js/jquery.min.js')}}"></script>
+<script src="{{asset('auth/login/js/popper.js')}}"></script>
+<script src="{{asset('auth/login/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('auth/login/js/main.js')}}"></script>
 
 </body>
 </html>
