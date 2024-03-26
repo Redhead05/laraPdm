@@ -169,5 +169,21 @@
                 });
             });
         </script>
-
+        <script>
+            $(document).ready(function() {
+                $(document).on('click', '.read-more', function() {
+                    var fullDescription = $(this).next('.full-description');
+                    var content = $(this).prev('.content');
+                    if (fullDescription.is(':hidden')) {
+                        fullDescription.show();
+                        content.hide();
+                        $(this).text('Read Less');
+                    } else {
+                        fullDescription.hide();
+                        content.show();
+                        $(this).text('Read More');
+                    }
+                });
+            });
+        </script>
 @endpush

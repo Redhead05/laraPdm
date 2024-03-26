@@ -25,6 +25,23 @@ class BlogController extends Controller
                 ->addColumn('image', function($row){
                     return $row->image;
                 })
+                ->addColumn('description', function($row){
+                    $dom = new \DOMDocument();
+                    libxml_use_internal_errors(true);
+                    $dom->loadHTML($row->description);
+                    libxml_clear_errors();
+                    $images = $dom->getElementsByTagName('img');
+
+                    foreach ($images as $img) {
+                        $img->setAttribute('style', 'height:50px; width:50px');
+                    }
+
+                    $description = $dom->saveHTML();
+                    $short_description = Str::limit($description, 100); // Limit the description to 100 characters
+
+//                    return '<div class="content">' . $short_description . '</div><button class="read-more">Read More</button><div class="full-description" style="display: none;">' . $description . '</div>';
+                    return '<div class="content">' . $short_description . '</div><button class="btn btn-primary read-more">Read More</button><div class="full-description" style="display: none;">' . $description . '</div>';
+                })
                 ->addColumn('action', function($row){
                     $editUrl = route('admin.blog.edit', $row->id);
                     $deleteUrl = route('admin.blog.destroy', $row->id);
@@ -36,7 +53,7 @@ class BlogController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['action', 'image'])
+                ->rawColumns(['action', 'image','description'])
                 ->setRowId(function ($data) {
                     return $data->id;
                 });
